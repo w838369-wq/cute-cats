@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cute Cats World</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/index.css">
+  <style>
+    .interaction-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+
+    .like-btn, .comment-btn {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .like-btn:hover, .comment-btn:hover {
+      background-color: var(--accent-dark);
+    }
+
+    .like-btn.liked {
+      background-color: #ff6b6b;
+    }
+
+    .comments-section {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: var(--radius);
+    }
+
+    .comments-section.active {
+      display: block;
+    }
+
+    .comment-list {
+      margin-bottom: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .comment-item {
+      background-color: white;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: var(--radius);
+      border-left: 3px solid var(--accent);
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .comment-author {
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+
+    .comment-time {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .comment-content {
+      word-break: break-word;
+    }
+
+    .comment-delete {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .comment-delete:hover {
+      background-color: #ff5252;
+    }
+
+    .comment-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .comment-input-group input,
+    .comment-input-group textarea {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .comment-input-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .comment-submit {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .comment-submit:hover {
+      background-color: var(--accent-dark);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo-link">
+    <img src="images/cat_icon.png" alt="Cute orange cat face logo with whiskers and friendly expression" class="logo">
+  </a>
+  <nav>
+    <ul class="menu">
+      <li class="dropdown">
+        <a href="#" aria-haspopup="true">Menu</a>
+        <ul class="dropdown-content">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="register.html">Register</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" aria-haspopup="true">External Links</a>
+        <ul class="dropdown-content">
+          <li><a href="https://en.wikipedia.org/wiki/Cat" target="_blank">Wikipedia: Cats</a></li>
+          <li><a href="https://www.aspca.org/" target="_blank">ASPCA</a></li>
+          <li><a href="https://www.catster.com/" target="_blank">Catster</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1>Cute Cats World</h1>
+
+  <section class="cat-section">
+    <h2>Playful Cats</h2>
+    <div class="card-grid" id="playful-cats-grid">
+    </div>
+  </section>
+
+  <section class="cat-section">
+    <h2>Adorable Companions</h2>
+    <div class="card-grid" id="adorable-cats-grid">
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Cute Cats Website | Images from Unsplash | Icons from Google Fonts</p>
+</footer>
+
+<script>
+function getFingerprint() {
+  let fp = localStorage.getItem('fingerprint');
+  
+  if (!fp) {
+    const data = {
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      screenResolution: `${screen.width}x${screen.height}`,
+      timestamp: Date.now()
+    };
+    
+    fp = btoa(JSON.stringify(data));
+    localStorage.setItem('fingerprint', fp);
+  }
+  
+  return fp;
+}
+
+async function loadCats() {
+  try {
+    const response = await fetch('/api/cats');
+    const data = await response.json();
+    
+    if (data.success) {
+      displayCats(data.cats);
+    } else {
+      console.error('Failed to load cats:', data.message);
+    }
+  } catch (error) {
+    console.error('Error loading cats:', error);
+  }
+}
+
+function displayCats(cats) {
+  const playfulGrid = document.getElementById('playful-cats-grid');
+  const adorableGrid = document.getElementById('adorable-cats-grid');
+  
+  const playfullCats = cats.slice(0, 3);
+  playfullCats.forEach(cat => {
+    playfulGrid.innerHTML += createCatCard(cat, 'section-one-card');
+  });
+  
+  const adorableCats = cats.slice(3);
+  adorableCats.forEach(cat => {
+    adorableGrid.innerHTML += createCatCard(cat, 'section-two-card');
+  });
+}
+
+function createCatCard(cat, cardClass) {
+  const fingerprint = getFingerprint();
+  
+  const card = `
+    <article class="card ${cardClass}">
+      <img src="images/${cat.imageUrl}" alt="${cat.name}">
+      <h3>${cat.name}</h3>
+      <p>${cat.breed}</p>
+      <p>${cat.description}</p>
+      
+      <div class="interaction-buttons">
+        <button class="like-btn" onclick="toggleLike('${cat._id}', this)">
+          👍 <span class="like-count">${cat.likeCount || 0}</span>
+        </button>
+        <button class="comment-btn" onclick="toggleComments('${cat._id}')">
+          💬 <span class="comment-count">${cat.commentCount || 0}</span>
+        </button>
+      </div>
+      
+      <div class="comments-section" id="comments-${cat._id}">
+        <div class="comment-list" id="comment-list-${cat._id}"></div>
+        
+        <div class="comment-input-group">
+          <input 
+            type="text" 
+            placeholder="Your name (optional)" 
+            id="name-${cat._id}" 
+            maxlength="50"
+          >
+          <textarea 
+            placeholder="Share your thoughts about this cat..." 
+            id="content-${cat._id}"
+            maxlength="500"
+          ></textarea>
+          <button class="comment-submit" onclick="postComment('${cat._id}')">
+            Post Comment
+          </button>
+        </div>
+      </div>
+    </article>
+  `;
+  
+  return card;
+}
+
+async function toggleLike(catId, button) {
+  const fingerprint = getFingerprint();
+  
+  try {
+    if (button.classList.contains('liked')) {
+      const response = await fetch(`/api/likes/${catId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fingerprint })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        button.classList.remove('liked');
+        location.reload();
+      }
+    } else {
+      const response = await fetch('/api/likes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ catId, fingerprint })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        button.classList.add('liked');
+        location.reload();
+      } else {
+        alert(data.message);
+      }
+    }
+  } catch (error) {
+    console.error('Error toggling like:', error);
+    alert('Failed to update like');
+  }
+}
+
+function toggleComments(catId) {
+  const commentsSection = document.getElementById(`comments-${catId}`);
+  
+  if (commentsSection.classList.contains('active')) {
+    commentsSection.classList.remove('active');
+  } else {
+    commentsSection.classList.add('active');
+    loadComments(catId);
+  }
+}
+
+async function loadComments(catId) {
+  try {
+    const response = await fetch(`/api/comments/${catId}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      displayComments(catId, data.comments);
+    }
+  } catch (error) {
+    console.error('Error loading comments:', error);
+  }
+}
+
+function displayComments(catId, comments) {
+  const commentList = document.getElementById(`comment-list-${catId}`);
+  commentList.innerHTML = '';
+  
+  if (comments.length === 0) {
+    commentList.innerHTML = '<p style="text-align: center; color: #999;">No comments yet. Be the first to comment!</p>';
+    return;
+  }
+  
+  const fingerprint = getFingerprint();
+  
+  comments.forEach(comment => {
+    const isOwner = comment.fingerprint === fingerprint;
+    const commentDate = new Date(comment.createdAt).toLocaleString();
+    
+    const commentHtml = `
+      <div class="comment-item">
+        <div class="comment-header">
+          <span>
+            <span class="comment-author">${comment.userName}</span>
+            <span class="comment-time">${commentDate}</span>
+          </span>
+          ${isOwner ? `<button class="comment-delete" onclick="deleteComment('${comment._id}')">Delete</button>` : ''}
+        </div>
+        <div class="comment-content">${escapeHtml(comment.content)}</div>
+      </div>
+    `;
+    
+    commentList.innerHTML += commentHtml;
+  });
+}
+
+async function postComment(catId) {
+  const fingerprint = getFingerprint();
+  const nameInput = document.getElementById(`name-${catId}`);
+  const contentInput = document.getElementById(`content-${catId}`);
+  
+  const userName = nameInput.value.trim() || 'Anonymous';
+  const content = contentInput.value.trim();
+  
+  if (!content) {
+    alert('Please enter a comment');
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        catId,
+        userName,
+        content,
+        fingerprint
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      nameInput.value = '';
+      contentInput.value = '';
+      loadComments(catId);
+      location.reload();
+    } else {
+      alert('Failed to post comment: ' + data.message);
+    }
+  } catch (error) {
+    console.error('Error posting comment:', error);
+    alert('Failed to post comment');
+  }
+}
+
+async function deleteComment(commentId) {
+  if (!confirm('Are you sure you want to delete this comment?')) {
+    return;
+  }
+  
+  const fingerprint = getFingerprint();
+  
+  try {
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fingerprint })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      location.reload();
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    alert('Failed to delete comment');
+  }
+}
+
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const fp = getFingerprint();
+  console.log('Your fingerprint:', fp);
+  loadCats();
+});
+</script>
+
+</body>
+</html>

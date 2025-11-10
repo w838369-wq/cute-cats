@@ -1,0 +1,70 @@
+﻿Image: cat_icon.png
+Source: https://fonts.google.com/icons
+License: https://fonts.google.com/icons#:~:text=Apache
+Description: Cat icon used as logo or decoration.
+
+
+Image: favorite_icon.png
+Source: https://fonts.google.com/icons
+License: https://fonts.google.com/icons#:~:text=Apache
+Description: Heart icon used as like button decoration.
+
+
+Image: arrow_drop_down_icon.png
+Source: https://fonts.google.com/icons
+License: https://fonts.google.com/icons#:~:text=Apache
+Description: Arrow icon used for navigation dropdown.
+
+
+Image: sunny_icon.png
+Source: https://fonts.google.com/icons
+License: https://fonts.google.com/icons#:~:text=Apache
+Description: Sunny icon used as decoration (optional).
+
+
+Image: mood_icon.png
+Source: https://fonts.google.com/icons
+License: https://fonts.google.com/icons#:~:text=Apache
+Description: Mood icon used as decoration (optional).
+
+
+Image: cat_sunglasses.jpg
+Source: https://unsplash.com/photos/russian-blue-cat-wearing-yellow-sunglasses-yMSecCHsIBc
+License: https://unsplash.com/license
+Description: A Russian Blue cat wearing yellow sunglasses.
+
+
+Image: cat_orange_stretch.jpg
+Source: https://unsplash.com/photos/orange-cat-stretching-on-white-surface-ZlFKIG6dApg
+License: https://unsplash.com/license
+Description: An orange cat stretching on white surface.
+
+
+Image: cat_table.jpg
+Source: https://unsplash.com/photos/russian-blue-cat-on-white-table-7E9qvMOsZEM
+License: https://unsplash.com/license
+Description: A Russian Blue cat sitting on a white table.
+
+
+Image: cat_bed.jpg
+Source: https://unsplash.com/photos/person-holding-gray-tabby-cat-while-lying-on-bed-mAsKA0jFfeQ
+License: https://unsplash.com/license
+Description: Person holding gray tabby cat while lying on bed.
+
+
+Image: cat_yawn.jpg
+Source: https://unsplash.com/photos/an-orange-and-white-cat-yawns-in-the-leaves-NSN2T1SHrvU
+License: https://unsplash.com/license
+Description: An orange and white cat yawning in the leaves.
+
+
+Image: cat_kittens.jpg
+Source: https://unsplash.com/photos/four-assorted-color-tabby-kittens-on-brown-basket-YCPkW_r_6uA
+License: https://unsplash.com/license
+Description: Four assorted color tabby kittens on brown basket.
+
+
+Image: cat_book.jpg
+Source: https://unsplash.com/photos/orange-tabby-cat-on-black-book-sHtJeNIzPe8
+License: https://unsplash.com/license
+Description: An orange tabby cat on a black book.

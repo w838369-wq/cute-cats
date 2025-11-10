@@ -1,0 +1,24 @@
+/* ================
+   About Page Specific Styles
+=================== */
+
+.about-main {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.about-content p {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+/* ================
+   Responsive
+=================== */
+@media (max-width: 37.5rem) {
+    .about-main {
+        padding: 1rem;
+    }
+}

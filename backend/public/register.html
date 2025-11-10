@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for the Cat Lovers Club</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-link">
+        <img src="images/cat_icon.png" alt="Cute orange cat face logo with whiskers and friendly expression" class="logo">
+    </a>
+    <nav>
+        <ul class="menu">
+            <li class="dropdown">
+                <a href="#" aria-haspopup="true">Menu</a>
+                <ul class="dropdown-content">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" aria-haspopup="true">External Links</a>
+                <ul class="dropdown-content">
+                    <li><a href="https://en.wikipedia.org/wiki/Cat" target="_blank">Wikipedia: Cats</a></li>
+                    <li><a href="https://www.aspca.org/" target="_blank">ASPCA</a></li>
+                    <li><a href="https://www.catster.com/" target="_blank">Catster</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main class="register-main">
+    <h1>Register for the Cat Lovers Club</h1>
+
+    <form action="/register" method="POST" class="register-form">
+        <label for="name">Name <span class="required">* (required)</span></label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email <span class="required">* (required)</span></label>
+        <input type="email" id="email" name="email" required>
+
+        <fieldset>
+            <legend>What do you love most about cats?</legend>
+            <div class="checkbox-group">
+                <input type="checkbox" id="cute" name="love" value="cute">
+                <label for="cute">Their cuteness</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="independent" name="love" value="independent">
+                <label for="independent">Their independence</label>
+            </div>
+        </fieldset>
+
+        <label for="breed">Favorite Cat Breed</label>
+        <select id="breed" name="breed">
+            <option value="">-- Select a breed --</option>
+            <option value="russian_blue">Russian Blue</option>
+            <option value="orange_tabby">Orange Tabby</option>
+            <option value="persian">Persian</option>
+            <option value="other">Other</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</main>
+
+<footer>
+    <p>© 2025 Cute Cats Website | Images from Unsplash | Icons from Google Fonts</p>
+</footer>
+
+</body>
+</html>

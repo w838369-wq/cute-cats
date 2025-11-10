@@ -1,0 +1,123 @@
+/* ================
+   Index Page Specific Styles
+   Includes: Card Grid, Card Styles
+=================== */
+
+/* ================
+   12 Column Grid Layout
+=================== */
+.cat-section {
+    margin-bottom: 4rem;
+    padding:2rem 0;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Section 1: 3 cards, each occupies 4 columns (4+4+4=12) */
+.section-one-card {
+    grid-column: auto / span 4;
+}
+
+/* Section 2: 4 cards, each occupies 3 columns (3+3+3+3=12) */
+.section-two-card {
+    grid-column: auto / span 3;
+}
+
+/* ================
+   Card Styles
+=================== */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card:hover,
+.card:focus-within {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 12.5rem;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin: 0.75rem 0;
+}
+
+.card p {
+    padding: 0 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    line-height: 1.7;
+}
+
+.card a {
+    display: inline-block;
+    margin: 0.75rem 0 1.25rem 0;
+    background-color: var(--accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    max-width: 10rem;
+}
+
+.card a:hover,
+.card a:focus {
+    background-color: var(--accent-dark);
+    outline: 0.125rem solid var(--accent-dark);
+    outline-offset: 0.125rem;
+}
+
+/* ================
+   Responsive - Tablet (50rem and below)
+=================== */
+@media (max-width: 50rem) {
+    /* Cards take 6 columns each (2 per row) */
+    .section-one-card,
+    .section-two-card {
+        grid-column: auto / span 6;
+    }
+}
+
+/* ================
+   Responsive - Mobile (37.5rem and below)
+=================== */
+@media (max-width: 37.5rem) {
+    /* All cards take full width (12 columns) on mobile */
+    .section-one-card,
+    .section-two-card {
+        grid-column: auto / span 12;
+    }
+
+    .card img {
+        height: 15rem;
+    }
+}
+
+/* ================
+   Responsive - Large Desktop (60rem and above)
+=================== */
+@media (min-width: 60rem) {
+    .card img {
+        height: 14rem;
+    }
+}
