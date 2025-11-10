@@ -247,14 +247,6 @@ npm run seed
 
 ---
 
-## 🤝 Related Projects
-
-This project is part of a portfolio demonstrating full-stack capabilities:
-- **Todo API** - REST API fundamentals with Node.js and Express
-- **Brick Breaker Game** - Game development with Java
-
----
-
 ## 📄 License
 
 This project uses third-party assets as documented in `backend/public/licenses.txt`:
@@ -262,19 +254,6 @@ This project uses third-party assets as documented in `backend/public/licenses.t
 - Icons from [Google Fonts](https://fonts.google.com/icons)
 
 Code is available for educational and portfolio purposes.
-
----
-
-## 👨‍💻 About the Developer
-
-This project was built as a portfolio piece to demonstrate full-stack web development capabilities for internship applications. It showcases the ability to take a project from concept to completion, including planning, development, testing, and deployment.
-
-**Key Skills Demonstrated:**
-- Frontend: HTML5, CSS3, Vanilla JavaScript
-- Backend: Node.js, Express.js, REST APIs
-- Database: MongoDB, Mongoose
-- Tools: Git, GitHub, Terminal commands
-- Soft Skills: Problem-solving, debugging, documentation
 
 ---
 
